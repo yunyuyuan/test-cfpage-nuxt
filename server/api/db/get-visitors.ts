@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return await getVisitors();
+  // return await getVisitors();
+  return "hellow!!!"
 });
 
 function request (path: string, data: any) {
