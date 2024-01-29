@@ -1,4 +1,4 @@
-import https from "https";
+import http from "http";
 
 export default defineEventHandler(async (event) => {
   // return await getVisitors();
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   };
 
   return await new Promise<any>((resolve, reject) => {
-    const req = https.request(url, options, (res) => {
+    const req = http.request(url, options, (res) => {
       let responseData = "";
 
       res.on("data", (chunk) => {
