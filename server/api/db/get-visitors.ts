@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return await getVisitors(args.type);
+  return await getVisitors();
 });
 
 function request (path: string, data: any) {
@@ -58,10 +58,10 @@ function request (path: string, data: any) {
   });
 };
 
-async function getVisitors (type: HeaderTabUrl) {
+async function getVisitors () {
   const res = await request("/action/find", {
     filter: {
-      ntype: type
+      ntype: "/articles"
     },
     projection: { _id: 0, nid: 1, nvisitors: 1 }
   });
