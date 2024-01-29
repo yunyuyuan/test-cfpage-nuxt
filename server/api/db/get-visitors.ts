@@ -7,7 +7,9 @@ export default defineEventHandler(async (event) => {
 
   return await new Promise<any>((resolve, reject) => {
     fetch(url).then(res => {
-      resolve(res.text)
+      res.text().then(t => {
+        resolve(t)
+      })
     })
   });
 });
