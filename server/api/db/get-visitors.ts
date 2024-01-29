@@ -4,32 +4,11 @@ export default defineEventHandler(async (event) => {
   // return await getVisitors();
 
   const url = "http://ip.jsontest.com/";
-  const options = {
-    method: "GET",
-  };
 
   return await new Promise<any>((resolve, reject) => {
-    const req = http.request(url, options, (res) => {
-      let responseData = "";
-
-      res.on("data", (chunk) => {
-        responseData += chunk;
-      });
-
-      res.on("end", () => {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(responseData));
-        } else {
-          reject(responseData);
-        }
-      });
-    });
-
-    req.on("error", (error) => {
-      reject(error.message);
-    });
-
-    req.end();
+    fetch(url).then(res => {
+      resolve(res.text)
+    })
   });
 });
 
