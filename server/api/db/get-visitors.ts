@@ -1,15 +1,36 @@
 import https from "https";
 
 export default defineEventHandler(async (event) => {
-  if (event.node.req.method?.toUpperCase() !== "POST") {
-    throw createError({
-      statusCode: 405,
-      data: "Post only!"
-    });
-  }
-
   // return await getVisitors();
-  return "hellow!!!"
+
+  const url = "http://ip.jsontest.com/";
+  const options = {
+    method: "GET",
+  };
+
+  return await new Promise<any>((resolve, reject) => {
+    const req = https.request(url, options, (res) => {
+      let responseData = "";
+
+      res.on("data", (chunk) => {
+        responseData += chunk;
+      });
+
+      res.on("end", () => {
+        if (res.statusCode === 200) {
+          resolve(JSON.parse(responseData));
+        } else {
+          reject(responseData);
+        }
+      });
+    });
+
+    req.on("error", (error) => {
+      reject(error.message);
+    });
+
+    req.end();
+  });
 });
 
 function request (path: string, data: any) {
